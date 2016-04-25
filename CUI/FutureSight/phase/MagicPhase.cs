@@ -29,16 +29,22 @@ namespace FutureSight
                     ExecuteBeginStep(game);
                     break;
                 case MagicStepType.ActivePlayer:
+                    game.AddEvent(new MagicPriorityEvent(game.Priority.GetPriorityPlayer()));
                     break;
                 case MagicStepType.Skip:
                     if (game.Priority.IsPassedAll())
-                        step = MagicStepType.Resolve;
+                        if (game.EventQueue.Count == 0)
+                            step = MagicStepType.NextPhase;
+                        else
+                            step = MagicStepType.Resolve;
                     break;
                 case MagicStepType.Resolve:
+                    step = MagicStepType.ActivePlayer;
                     game.Priority.Clear();
                     game.Resolve();
                     break;
                 case MagicStepType.NextPhase:
+                    step = MagicStepType.Begin;
                     ExecuteEndStep(game);
                     break;
             } 

@@ -13,41 +13,46 @@ namespace FutureSight
         public MagicPhase Phase { get; private set; } = DefaultGamePlay.Instance.StartPhase();
         public MagicPriority Priority { get; private set; }
         public List<MagicPlayer> Players { get; private set; }
-        public LinkedList<MagicEffect> EventQueue { get; private set; } = new LinkedList<MagicEffect>();
+        public LinkedList<MagicEvent> EventQueue { get; private set; } = new LinkedList<MagicEvent>();
         public MagicStack Stack { get; private set; } = new MagicStack();
         public int ElapsedTurn = 1;
         public MagicPlayer TurnPlayer { get; set; }
         private List<string> LogBook = new List<string>();
         public bool DisableLogging { get; set; } = false;
 
+        public MagicGame() { }
         public MagicGame(List<MagicPlayer> players, MagicPlayer first)
         {
             Players = players;
-            Priority = new MagicPriority(Players, Players[0]);
-        }
-
-        public void RunGame()
-        {
+            TurnPlayer = first;
+            Priority = new MagicPriority(Players, first);
         }
 
         public void ExecutePhase()
         {
-
+            Phase.ExecutePhase(this);
         }
 
-        public void ExecuteEffect()
+        public void AddEvent(MagicEvent evnt)
         {
+            EventQueue.AddLast(evnt);
+        }
 
+        public void ExecuteEvent()
+        {
+            if (EventQueue.Count == 0) throw new Exception("event is empty.");
+            var evnt = EventQueue.First();
+            EventQueue.RemoveFirst();
+            evnt.Execute(this, MagicChoice.NoneOfChoiceResults);
         }
 
         public void Resolve()
         {
-
         }
 
         public void NextPhase()
         {
-
+            GamePlay.NextPhase(Phase);
         }
 
         public static MagicGame Create(List<MagicPlayer> players, MagicPlayer first)

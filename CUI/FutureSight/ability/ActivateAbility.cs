@@ -9,7 +9,7 @@ namespace FutureSight
     public class ActivateAbility : MagicAbility
     {
         public List<IMagicTarget> Targets { get; set; } = new List<IMagicTarget>();
-        public List<MagicEffect> Effects { get; set; } = new List<MagicEffect>();
+        public List<MagicEvent> Effects { get; set; } = new List<MagicEvent>();
         public string ActivationRestriction { get; set; }
 
         public override bool CanPlay()
