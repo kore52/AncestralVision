@@ -36,7 +36,7 @@ namespace FutureSight
             foreach (var act in activations)
             {
                 if (!act.CanPlay(game)) continue;
-                results.Add((object)act);
+                results.Add(act);
             }
 
             return results;
