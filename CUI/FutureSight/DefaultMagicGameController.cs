@@ -23,9 +23,12 @@ namespace FutureSight
 
         public void RunGame()
         {
-            while (true)
+            while (game.AdvanceToNextEventWithChoice())
             {
-                game.ExecutePhase();
+                var priorityPlayer = game.GetPriorityPlayer();
+
+                // TODO:
+                // var results = game.GetAIChoiceResults();
             }
         }
 

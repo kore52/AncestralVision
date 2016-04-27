@@ -33,5 +33,37 @@ namespace FutureSight
             MaxHandSize = maxHandSize;
             IsAI = isAI;
         }
+
+        public IEnumerable<MagicAbility> GetAllActivations()
+        {
+            foreach (var c in Hand)
+            {
+                foreach (var item in c.GetAllActivations())
+                {
+                    yield return item;
+                }
+            }
+            foreach (var c in Graveyard)
+            {
+                foreach (var item in c.GetAllActivations())
+                {
+                    yield return item;
+                }
+            }
+            foreach (var c in Exile)
+            {
+                foreach (var item in c.GetAllActivations())
+                {
+                    yield return item;
+                }
+            }
+            foreach (var p in Permanents)
+            {
+                foreach (var item in p.GetAllActivations())
+                {
+                    yield return item;
+                }
+            }
+        }
     }
 }

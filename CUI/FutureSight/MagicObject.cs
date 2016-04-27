@@ -9,7 +9,7 @@ namespace FutureSight
         public MagicCard Card = new MagicCard();
         public MagicCharacteristics Characteristics = new MagicCharacteristics();
 
-        public IEnumerable<MagicEvent> GetAllActivations()
+        public IEnumerable<MagicAbility> GetAllActivations()
         {
             foreach (var item in Characteristics.ActivateAbility) { yield return item; }
             foreach (var item in Characteristics.ManaAbility) { yield return item; }
@@ -46,12 +46,12 @@ namespace FutureSight
         public string SpecialType;
         public string SubType;
         public string RuleText;
-        public List<MagicEvent> StaticAbility = new List<MagicEvent>();
-        public List<MagicEvent> ActivateAbility = new List<MagicEvent>();
-        public List<MagicEvent> ManaAbility = new List<MagicEvent>();
-        public List<MagicEvent> TriggeredAbility = new List<MagicEvent>();
-        public List<MagicEvent> SpellAbility = new List<MagicEvent>();
-        public List<MagicEvent> LoyaltyAbility = new List<MagicEvent>();
+        public List<MagicAbility> StaticAbility = new List<MagicAbility>();
+        public List<MagicAbility> ActivateAbility = new List<MagicAbility>();
+        public List<MagicAbility> ManaAbility = new List<MagicAbility>();
+        public List<MagicAbility> TriggeredAbility = new List<MagicAbility>();
+        public List<MagicAbility> SpellAbility = new List<MagicAbility>();
+        public List<MagicAbility> LoyaltyAbility = new List<MagicAbility>();
         public string Power;
         public string Toughness;
         public string Loyalty;

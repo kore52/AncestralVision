@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
 namespace FutureSight
@@ -12,7 +13,7 @@ namespace FutureSight
         public Action<MagicGame, MagicEvent> Action;
         public MagicChoice Choice;
         public string Text;
-        public List<object> ChoiceResults;
+        public Collection<object> ChoiceResults;
 
         public MagicEvent(
             MagicObject source = null,
@@ -29,7 +30,7 @@ namespace FutureSight
             Choice = choice ?? MagicChoice.None;
         }
 
-        public void Execute(MagicGame game, List<object> choiceResults)
+        public void Execute(MagicGame game, Collection<object> choiceResults)
         {
             ChoiceResults = choiceResults;
             Action(game, this);

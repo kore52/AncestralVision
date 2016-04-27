@@ -33,6 +33,11 @@ namespace FutureSight
             Phase.ExecutePhase(this);
         }
 
+        public void NextPhase()
+        {
+            GamePlay.NextPhase(Phase);
+        }
+
         public void AddEvent(MagicEvent evnt)
         {
             EventQueue.AddLast(evnt);
@@ -50,14 +55,29 @@ namespace FutureSight
         {
         }
 
-        public void NextPhase()
+        public bool AdvanceToNextEventWithChoice()
         {
-            GamePlay.NextPhase(Phase);
-        }
-
-        public static MagicGame Create(List<MagicPlayer> players, MagicPlayer first)
-        {
-            return new MagicGame(players, first);
+            while (true)
+            {
+                if (EventQueue.Count == 0)
+                {
+                    ExecutePhase();
+                }
+                else
+                {
+                    var evnt = EventQueue.First();
+                    if (evnt.Choice == MagicChoice.None)
+                    {
+                        ExecuteEvent();
+                        return false;
+                    }
+                    else
+                    {
+                        ExecuteEvent();
+                        return true;
+                    }
+                }
+            }
         }
 
         public void Tracelog(string log)
@@ -68,6 +88,16 @@ namespace FutureSight
         public void Snapshot()
         {
 
+        }
+
+        public MagicPlayer GetPriorityPlayer()
+        {
+            return Priority.GetPriorityPlayer();
+        }
+
+        public static MagicGame Create(List<MagicPlayer> players, MagicPlayer first)
+        {
+            return new MagicGame(players, first);
         }
 
     }
